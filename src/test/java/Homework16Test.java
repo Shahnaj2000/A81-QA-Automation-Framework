@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
 import java.time.Duration;
+import org.testng.Assert;
 
 
 
@@ -25,11 +26,11 @@ public class Homework16Test extends BaseTest {
         driver.get(url);
 
         //Locate web element for registration field by xpath
-        WebElement registrationLink = driver.findElement(By.xpath("//a[@href='registration'"));
+        WebElement registrationLink = driver.findElement(By.xpath("//a[@href='registration']"));
         registrationLink.click();
 
         //Comparing the registrationUrl with the current driver registration link
-        String registrationUrl = "https//qa.koel.app/registration";
+        String registrationUrl = "https://qa.koel.app/registration";
         Assert.assertEquals(driver.getCurrentUrl(), registrationUrl);
 
         //Close the browser
