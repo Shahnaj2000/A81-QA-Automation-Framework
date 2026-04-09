@@ -11,72 +11,35 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 
+
   public class Homework17 extends BaseTest {
       @Test
       public void addSongToPlaylist() throws InterruptedException  {
-String expectedSongNotificationMessage ="Added 1 song into \"Test Pro Playlist.\"";
+
+          String expectedSongNotificationMessage ="Added 1 song into \"Test Pro Playlist.\"";
           ChromeOptions options = new ChromeOptions();
           options.addArguments("--remote-allow-origins=*");
 
           WebDriver driver = new ChromeDriver(options);
           driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-          String url = "https://qa.koel.app/";
-          driver.get(url);
 
-          WebElement emailField = driver.findElement(By.xpath("//input[@type='email']"));
-          emailField.click();
-          emailField.clear();
-          emailField.sendKeys("shahnaj.khatun@testpro.io");
 
-          WebElement passwordField =driver.findElement(By.xpath("//input[@type='password']"));
-          passwordField.click();
-          passwordField.clear();
-          passwordField.sendKeys("Faizan@123");
+          CommonAction actions = new CommonAction(driver);
 
-          WebElement loginButton =driver.findElement(By.xpath("//button[@type='submit']"));
-          loginButton.click();
-
+          //Navigate to the URL
+          actions.Navigate("https://qa.koel.app/");
+          //logIn
+          actions.logIn("shahnaj.khatun@testpro.io", "Faizan@123");
          //search for a song
-          WebElement searchField =driver.findElement(By.xpath("//input[@name='q']"));
-          searchField.click();
-          searchField.clear();
-          searchField.sendKeys("dark days");
-
-          WebElement viewAllButton =driver.findElement(By.xpath("//button[@data-test='view-all-songs-btn']"));
-          viewAllButton.click();
-
-          WebElement firstSong = driver.findElement(By.xpath("//section[@id='songResultsWrapper']//table[@class='items']//tr[1]"));
-          firstSong.click();
-
-          WebElement addToButton = driver.findElement(By.xpath("//button[@class='btn-add-to']"));
-          addToButton.click();
-
-          //WebElement playlistBtn = driver.findElement(By.xpath("//section[@class='existing-playlists]//licontains(text(),'Test Pro Playlist')]"));
-          // WebElement playlistBtn = driver.findElement(By.xpath("(//section[@class='existing-playlists']//li[@class='playlist'])[1]"));
-          System.out.println("Waiting for playlist element...");
-
-           WebElement playlistBtn = driver.findElement(By.xpath("//section[@id='songResultsWrapper']//li[contains(text(), 'Test Pro Playlist')]"));
-
-          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//          WebElement playlistBtn = wait.until(
-//                  ExpectedConditions.visibilityOfElementLocated(
-//                          By.xpath("//section[@id='songResultsWrapper']//li[contains(text(), 'Test Pro Playlist')]")
-//                  )
-//          );
-
-          playlistBtn.click();
-
-//          WebElement notification = driver.findElement(By.xpath("//div[contains(@class,'success') and contains(@class,'show')]"));
-
-          System.out.println("Element found, clicking now...");
-          WebElement notification = wait.until(
-                  ExpectedConditions.visibilityOfElementLocated(
-                          By.xpath("//div[contains(@class,'success') and contains(@class,'show')]")
-                  )
-          );
-          String message = notification.getText();
-          System.out.println("message" + message);
-        Assert.assertEquals(message, expectedSongNotificationMessage);
+          actions.searchSong("dark days");
+        //Click on view all button
+          actions.clickViewAllButton();
+         //Click on first song
+         actions.clickFirstSong();
+         //Click on add to button
+          actions.clickAddToButton();
+          String notification = actions.clickTestProPlaylist();
+        Assert.assertEquals(notification, expectedSongNotificationMessage);
 
 
 
