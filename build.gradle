@@ -21,3 +21,9 @@ test {
 
     }
 }
+
+test {
+    useTestNG() {
+        suites "src/test/resources/homework18.xml"
+    }
+}
