@@ -9,7 +9,6 @@
             <class name="BaseTest"/>
             <class name="Homework17"/>
             <class name="Homework19"/>
-
         </classes>
     </test>
 </suite>
