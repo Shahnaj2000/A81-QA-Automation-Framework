@@ -16,11 +16,10 @@ import org.testng.annotations.Parameters;
 import java.time.Duration;
 
 public class BaseTest {
-    public WebDriver driver;
-    public String url ="https://qa.koel.app/" ;
-    public WebDriverWait wait = null;
-    Actions actions;
-
+    public static WebDriver driver;
+    public String url ;
+    public static WebDriverWait wait = null;
+    public static Actions actions;
     @BeforeSuite
     static void setupClass() {WebDriverManager.chromedriver().setup();
     }
@@ -37,7 +36,6 @@ public class BaseTest {
         url=BaseURL;
         wait = new WebDriverWait(driver, Duration.ofSeconds(40));
         navigateToPage();
-        actions =new Actions(driver);
     }
     @AfterMethod
     public void closeBrowser(){
