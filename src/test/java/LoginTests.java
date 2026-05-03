@@ -13,8 +13,8 @@ public class LoginTests extends BaseTest {
 
    @Test
    public void loginCorrectEmailandPassword(){
-      LoginPage loginpage = new LoginPage(driver);
-      HomePage homepage = new HomePage(driver);
+      LoginPage loginpage = new LoginPage(getDriver());
+      HomePage homepage = new HomePage(getDriver());
       loginpage.provideEmail("shahnaj.khatun@testpro.io");
       loginpage.providePassword("Faizan@123");
       loginpage.clickLoginButton();
